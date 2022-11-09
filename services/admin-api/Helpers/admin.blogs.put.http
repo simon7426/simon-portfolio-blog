@@ -1,0 +1,8 @@
+PUT http://localhost:8000/api/v1/admin/blogs/6347ebd85db8ef81b36451bf HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Test Blog edited",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla imperdiet nulla sit amet velit sagittis facilisis. Vivamus at auctor erat, et euismod ex. Sed posuere magna sit amet luctus vulputate. Ut tincidunt ut felis et aliquet. Pellentesque sit amet euismod nisi. Cras elit enim, posuere sed turpis in, vehicula venenatis ex. Donec viverra quam id velit pretium, sed pharetra ex sodales. Nunc vitae justo in erat condimentum tempor in quis elit.",
+    "tags": ["tag1", "tag2"]
+}

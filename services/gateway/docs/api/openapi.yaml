@@ -1,0 +1,344 @@
+components:
+  schemas:
+    BlogIn:
+      example:
+        body: Test Body
+        tags:
+        - tag1
+        - tag2
+        title: Test Title
+      properties:
+        body:
+          title: Body
+          type: string
+        tags:
+          items:
+            type: string
+          title: Tags
+          type: array
+        title:
+          title: Title
+          type: string
+      required:
+      - title
+      - body
+      - tags
+      title: BlogIn
+      type: object
+    CommentPost:
+      example:
+        body: Test Comment for Test Blog.
+        display_name: test-name
+        email: abc@example.com
+      properties:
+        body:
+          title: Body
+          type: string
+        display_name:
+          title: Display Name
+          type: string
+        email:
+          format: email
+          title: Email
+          type: string
+      required:
+      - email
+      - display_name
+      - body
+      title: CommentPost
+      type: object
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          title: Detail
+          type: array
+      title: HTTPValidationError
+      type: object
+    UserLogin:
+      example:
+        password: test-password
+        username: test-username
+      properties:
+        password:
+          title: Password
+          type: string
+        username:
+          title: Username
+          type: string
+      required:
+      - username
+      - password
+      title: UserLogin
+      type: object
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          title: Location
+          type: array
+        msg:
+          title: Message
+          type: string
+        type:
+          title: Error Type
+          type: string
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+      type: object
+info:
+  title: FastAPI
+  version: 0.1.0
+openapi: 3.0.2
+paths:
+  /alive:
+    get:
+      operationId: alive_alive_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: Alive
+  /api/v1/admin/auth/login:
+    post:
+      operationId: login_api_v1_admin_auth_login_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Login
+      tags:
+      - admin
+  /api/v1/admin/blogs:
+    get:
+      operationId: get_all_blogs_api_v1_admin_blogs_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: Get All Blogs
+      tags:
+      - admin
+    post:
+      operationId: add_blog_api_v1_admin_blogs_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlogIn'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Add Blog
+      tags:
+      - admin
+  /api/v1/admin/blogs/{blog_id}/comment/{comment_id}:
+    delete:
+      operationId: delete_comment_api_v1_admin_blogs__blog_id__comment__comment_id__delete
+      parameters:
+      - in: path
+        name: blog_id
+        required: true
+        schema:
+          title: Blog Id
+          type: string
+      - in: path
+        name: comment_id
+        required: true
+        schema:
+          title: Comment Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Comment
+      tags:
+      - admin
+  /api/v1/admin/blogs/{id}:
+    delete:
+      operationId: delete_blog_api_v1_admin_blogs__id__delete
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          title: Id
+          type: string
+      responses:
+        '204':
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Delete Blog
+      tags:
+      - admin
+    get:
+      operationId: get_blog_api_v1_admin_blogs__id__get
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          title: Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Blog
+      tags:
+      - admin
+    put:
+      operationId: update_blog_api_v1_admin_blogs__id__put
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          title: Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BlogIn'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Update Blog
+      tags:
+      - admin
+  /api/v1/blogs:
+    get:
+      operationId: get_all_blogs_api_v1_blogs_get
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+      summary: Get All Blogs
+      tags:
+      - client
+  /api/v1/blogs/{id}:
+    get:
+      operationId: get_blog_api_v1_blogs__id__get
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          title: Id
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Get Blog
+      tags:
+      - client
+  /api/v1/blogs/{id}/comment:
+    post:
+      operationId: add_comment_api_v1_blogs__id__comment_post
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          title: Id
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentPost'
+        required: true
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: Successful Response
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+          description: Validation Error
+      summary: Add Comment
+      tags:
+      - client

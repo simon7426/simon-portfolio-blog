@@ -1,0 +1,2 @@
+DELETE http://localhost:8000/api/v1/admin/blogs/6347ebd85db8ef81b36451bf HTTP/1.1
+content-type: application/json

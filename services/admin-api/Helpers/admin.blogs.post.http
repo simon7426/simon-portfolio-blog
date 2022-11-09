@@ -1,0 +1,19 @@
+POST http://localhost:8000/api/v1/admin/blogs HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Test Blog",
+    "body": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla imperdiet nulla sit amet velit sagittis facilisis. Vivamus at auctor erat, et euismod ex. Sed posuere magna sit amet luctus vulputate. Ut tincidunt ut felis et aliquet. Pellentesque sit amet euismod nisi. Cras elit enim, posuere sed turpis in, vehicula venenatis ex. Donec viverra quam id velit pretium, sed pharetra ex sodales. Nunc vitae justo in erat condimentum tempor in quis elit.",
+    "tags": ["tag1", "tag2"]
+}
+
+###
+
+POST http://localhost:8000/api/v1/admin/blogs HTTP/1.1
+content-type: application/json
+
+{
+    "title": "Brenda's Story 3",
+    "body": "Don't forget that gifts often come with costs that go beyond their purchase price. When you purchase a child the latest smartphone, you're also committing to a monthly phone bill. When you purchase the latest gaming system, you're likely not going to be satisfied with the games that come with it for long and want to purchase new titles to play. When you buy gifts it's important to remember that some come with additional costs down the road that can be much more expensive than the initial gift itself. It was easy to spot her. All you needed to do was look at her socks. They were never a matching pair. One would be green while the other would be blue. One would reach her knee while the other barely touched her ankle. Every other part of her was perfect, but never the socks. They were her micro act of rebellion.",
+    "tags": ["brenda", "magic"]
+}

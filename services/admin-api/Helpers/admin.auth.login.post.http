@@ -1,0 +1,27 @@
+POST http://hello.world/api/v1/admin/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "simon",
+    "password": "rian7426"
+}
+
+###
+
+POST http://localhost:8000/api/v1/admin/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "simo",
+    "password": "rian7426"
+}
+
+###
+
+POST http://localhost:8000/api/v1/admin/auth/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "simon",
+    "password": "rian742"
+}
