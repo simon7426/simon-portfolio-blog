@@ -47,6 +47,7 @@ services:
     environment:
       - ADMIN_URL=http://admin-api:8000
       - CLIENT_URL=http://client-api:8000
+      - RECAPTCHA_SECRET=${RECAPTCHA_SECRET}
     depends_on:
       - admin-api
       - client-api
