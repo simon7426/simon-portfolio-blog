@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: client-api-configmap
+  labels:
+    app: client-api
+data:
+  MONGO_URI: mongodb://admin:mongopass@mongo-service:27017/blogs?authSource=admin
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: client-api
+  name: client-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client-api
+  template:
+    metadata:
+      labels:
+        app: client-api
+    spec:
+      containers:
+      - image: simon7426/portfolio-blog-client-api:0.1
+        name: client-api
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: client-api-configmap
+        ports:
+          - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-api-service
+  labels:
+    app: client-api
+spec:
+  selector:
+    app: client-api
+  ports:
+  - port: 8000
+    targetPort: 8000
