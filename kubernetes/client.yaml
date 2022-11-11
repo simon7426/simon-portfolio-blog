@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: client-configmap
+  labels:
+    app: client
+data:
+  BASE_URL: http://client-api-service:8000
+  BROWSER_URL: https://blog.simonislam.com
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: client
+  name: client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client
+  template:
+    metadata:
+      labels:
+        app: client
+    spec:
+      containers:
+      - image: simon7426/portfolio-blog-client:0.1
+        name: client
+        imagePullPolicy: Always
+        envFrom:
+          - configMapRef:
+              name: client-configmap
+        ports:
+          - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: client-service
+  labels:
+    app: client
+spec:
+  selector:
+    app: client
+  ports:
+  - port: 3000
+    targetPort: 3000

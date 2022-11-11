@@ -1,6 +1,9 @@
 import axios from 'axios/index'
 import hljs from 'highlight.js'
 
+const baseURL = process.env.BASE_URL
+const browserBaseUrl = process.env.BROWSER_URL || ''
+
 const getUrl = (post) => {
   const finalString = post.title
     .replace(/[.,/#!$%^&*;:{}=\-_'`~()]/g, '')
@@ -14,7 +17,7 @@ const createSitemapRoutes = async () => {
   const routes = []
   const contents = await axios
     // .get('http://client-api:8000/api/v1/blogs')
-    .get('http://client-api:8000/api/v1/blogs')
+    .get(`${baseURL}/api/v1/blogs`)
     .then((response) => {
       return response.data
     })
@@ -25,8 +28,6 @@ const createSitemapRoutes = async () => {
   }
   return routes
 }
-
-const siteUrl = process.env.BASE_URL || 'http://hello.world'
 
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -89,7 +90,7 @@ export default {
     },
   },
   sitemap: {
-    hostname: siteUrl,
+    hostname: browserBaseUrl,
     gzip: true,
     routes: createSitemapRoutes,
   },
@@ -97,7 +98,7 @@ export default {
     {
       UserAgent: '*',
       Allow: '/',
-      Sitemap: `${siteUrl}/sitemap.xml`,
+      Sitemap: `${browserBaseUrl}/sitemap.xml`,
     },
   ],
   markdownit: {
@@ -131,8 +132,8 @@ export default {
     ],
   },
   axios: {
-    baseURL: 'http://client-api:8000',
-    browserBaseURL: 'http://hello.world',
+    baseURL: `${baseURL}`,
+    browserBaseURL: `${browserBaseUrl}`,
     headers: {
       'Content-Type': 'application/json',
     },

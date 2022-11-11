@@ -13,7 +13,7 @@ kind: Deployment
 metadata:
   labels:
     app: client-api
-  name: client-api
+  name: client-api-deployment
 spec:
   replicas: 1
   selector:
